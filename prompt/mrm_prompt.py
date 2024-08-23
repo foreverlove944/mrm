@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-srm_design_plan="""
+mrm_design_plan="""
 ##Instruction
 Make a plan for the given question. Pay attention to the nouns(eg. name,city,places) that appear in the question becauess they are the represent the subjects of the knowledge you desire to obtain.
 
@@ -67,7 +67,7 @@ subject_question:{{"subject":"Live at the Point","question":"what singer of the 
 Q: {question}
 A: 
 """
-srm_perform_plan="""
+mrm_perform_plan="""
 ##Instruction
 Perfor a step of the plan. View the second step as the the first step.
 
@@ -197,7 +197,7 @@ Knowledge: {knowledge}
 New plan:  
 """
 
-srm_extraction="""
+mrm_extraction="""
 Your response must be longer than 20 words and shorter than 50 words.
 
 
@@ -206,7 +206,7 @@ Q:{question}
 A:
 """
 
-srm_final_answer="""
+mrm_final_answer="""
 Answer the question.
 
 Knowledge:{all_knowledge}
@@ -218,7 +218,7 @@ Q: {original_question}
 A: 
 """
 
-srm_prompt_design_plan=PromptTemplate(template=srm_design_plan,input_variables=["question"])
-srm_prompt_perform_plan=PromptTemplate(template=srm_perform_plan,input_variables=["plan","knowledge"])
-srm_prompt_extraction=PromptTemplate(template=srm_extraction,input_variables=["question","documents"])
-srm_prompt_final_answer=PromptTemplate(template=srm_final_answer,input_variables=["all_knowledge","original_question","plan"])
+mrm_prompt_design_plan=PromptTemplate(template=mrm_design_plan,input_variables=["question"])
+mrm_prompt_perform_plan=PromptTemplate(template=mrm_perform_plan,input_variables=["plan","knowledge"])
+mrm_prompt_extraction=PromptTemplate(template=mrm_extraction,input_variables=["question","documents"])
+mrm_prompt_final_answer=PromptTemplate(template=mrm_final_answer,input_variables=["all_knowledge","original_question","plan"])
