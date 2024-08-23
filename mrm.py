@@ -7,9 +7,9 @@ from chromadb.utils import embedding_functions
 from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 
-from prompt.srm_prompt import (srm_prompt_design_plan, srm_prompt_extraction,
-                               srm_prompt_final_answer,
-                               srm_prompt_perform_plan)
+from prompt.mrm_prompt import (mrm_prompt_design_plan, mrm_prompt_extraction,
+                               mrm_prompt_final_answer,
+                               mrm_prompt_perform_plan)
 from utils import get_collection
 
 parser = argparse.ArgumentParser()
@@ -46,7 +46,7 @@ design_plan_chain = (
             {
                 "question": lambda x: x["question"]
             }
-            | srm_prompt_design_plan
+            | mrm_prompt_design_plan
             | model
             | StrOutputParser()
         )
@@ -55,7 +55,7 @@ perform_plan_chain = (
                 "knowledge": lambda x: x["knowledge"],
                 "plan":  lambda x: x["plan"],
             }
-            | srm_prompt_perform_plan
+            | mrm_prompt_perform_plan
             | model
             | StrOutputParser()
         )
@@ -64,7 +64,7 @@ extraction_knowledge_chain = (
                 "documents": lambda x: x["documents"],
                 "question":  lambda x: x["question"],
             }
-            | srm_prompt_extraction
+            | mrm_prompt_extraction
             | model
             | StrOutputParser()
         )
@@ -74,7 +74,7 @@ final_answer_chain = (
                 "original_question":  lambda x: x["original_question"],
                 "plan":  lambda x: x["plan"],
             }
-            | srm_prompt_final_answer
+            | mrm_prompt_final_answer
             | model
             | StrOutputParser()
         )
