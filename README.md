@@ -8,6 +8,7 @@ Musique： https://huggingface.co/datasets/dgslibisey/MuSiQue
 3. Vectorize documents from 2,000 questions by using text-embeding-large from OpenAI
 
     pthon vectorize_documents.py --input_file_path "./dataset/musique_examples.jsonl" --api_kye your_api_key --api_base your_api_base 
-    Note: 
+
+    Note: you should provide your own api key and api base
 ## Experiments
 pthon srm.py --input_file_path standard_question_answer --api_kye your_api_key --api_base your_api_base 
