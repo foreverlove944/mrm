@@ -27,6 +27,7 @@ ef  =  embedding_functions.OpenAIEmbeddingFunction(
 
 
 
+
 def create_directory(path):
     try:
         if not os.path.exists(path):
@@ -36,7 +37,25 @@ def create_directory(path):
             print(f"{path} has been establish")
     except OSError as error:
         print(f"{path} error: {error}")
-
+def mak_question_answer_file(file_path):
+    folder_path = "./standard_question_answer"
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        print(f"{folder_path} have been established")
+    question_answer_file = os.path.basename(file_path).split(".")[0]
+    question_answer_file= question_answer_file +".jsonl"
+    question_answer_file = os.path.join(folder_path,question_answer_file)
+    if not os.path.isfile(question_answer_file):
+        f_save = open(question_answer_file,"w",encoding="utf-8")
+        with open(file_path,"r",encoding="utf-8") as f_read:
+            for i in f_read.readlines():
+                i_dict = json.loads(i)
+                del i_dict["paragraphs"]
+                del i_dict["question_decomposition"]
+                json.dump(i_dict,f_save,ensure_ascii=False)
+                f_save.write("\n")
+        f_save.close()
+    return question_answer_file
 def vectorize_documents(file_path, chroma_path):
     client = chromadb.PersistentClient(path=chroma_path)
     collection = client.create_collection(name="musique_collection",embedding_function=ef)
@@ -71,4 +90,5 @@ def vectorize_documents(file_path, chroma_path):
             
 if __name__ == "__main__":
     create_directory(chroma_path)
+    mak_question_answer_file(file_path)
     vectorize_documents(file_path, chroma_path)

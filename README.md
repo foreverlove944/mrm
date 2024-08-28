@@ -1,4 +1,4 @@
-
+## Default to using gpt-3.5-turbo
 ## Prepare the data
 1. Down load the dataset from hugging face
 Musique： https://huggingface.co/datasets/dgslibisey/MuSiQue
@@ -10,4 +10,4 @@ Musique： https://huggingface.co/datasets/dgslibisey/MuSiQue
     pthon vectorize_documents.py --input_file_path "./dataset/musique_examples.jsonl" --api_kye your_api_key --api_base your_api_base 
     Note: 
 ## Experiments
-pthon srm.py --input_file_path data_path --api_kye your_api_key --api_base your_api_base 
+pthon srm.py --input_file_path standard_question_answer --api_kye your_api_key --api_base your_api_base 

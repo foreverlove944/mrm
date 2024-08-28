@@ -13,7 +13,7 @@ from prompt.mrm_prompt import (mrm_prompt_design_plan, mrm_prompt_extraction,
 from utils import get_collection
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_file', type=str, default='./dataset/musique_examples.jsonl')
+parser.add_argument('--input_file', type=str, default='./standard_question_answer/musique_examples.jsonl')
 parser.add_argument('--api_key', type=str,help='openai api key')
 parser.add_argument('--chroma_path', default="./chroma_db", help='chroma db path')
 parser.add_argument('--api_base', default=None)
@@ -117,32 +117,12 @@ class SRM(object):
             num = extracted_part.strip()
             num = int(num)
             return num
-    def mak_question_answer_file(self,file_path):
-        folder_path = "./standard_question_answer"
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-            print(f"{folder_path} have been established")
-        question_answer_file = os.path.basename(file_path).split(".")[0]
-        question_answer_file= question_answer_file +".jsonl"
-        question_answer_file = os.path.join(folder_path,question_answer_file)
-        if not os.path.isfile(question_answer_file):
-            f_save = open(question_answer_file,"w",encoding="utf-8")
-            with open(file_path,"r",encoding="utf-8") as f_read:
-                for i in f_read.readlines():
-                    i_dict = json.loads(i)
-                    del i_dict["paragraphs"]
-                    del i_dict["question_decomposition"]
-                    json.dump(i_dict,f_save,ensure_ascii=False)
-                    f_save.write("\n")
-            f_save.close()
-        return question_answer_file
     def run(self,file_path):
         basename = os.path.basename(file_path)
+        basename = "mrm_" + basename
         f_answer = open(os.path.join("./result",basename),"w",encoding="utf-8")
         question = []
-        question_file = self.mak_question_answer_file(file_path)
-        
-        with open(question_file,"r",encoding='utf-8') as f:
+        with open(file_path,"r",encoding='utf-8') as f:
             for i in f.readlines():
                 i_dict = json.loads(i)
                 question.append(i_dict)
