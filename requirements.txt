@@ -1,0 +1,6 @@
+chroma
+chromadb
+langchain
+openai
+tqdm
+
