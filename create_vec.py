@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input_file', type=str, default='./dataset/musique_examples.jsonl')
 parser.add_argument('--api_key', type=str,help='openai api key')
 parser.add_argument('--chroma_path', default="./chroma_db", help='chroma db path')
-parser.add_argument('--api_base', default=None)
+parser.add_argument('--api_base', help="you need give a third-party API base or opeai's API base")
 parser.add_argument('--collection_name', default="musique_collection")
 parser.add_argument('--distance_function', type=str, choices=['l2', 'cosine'], default='cosine', help='Distance function to use for the collection (l2 or cosine)')
 
@@ -105,4 +105,5 @@ def vectorize_documents(file_path, chroma_path, collection_name, distance_functi
 if __name__ == "__main__":
     create_directory(chroma_path)
     mak_question_answer_file(file_path)
+
     vectorize_documents(file_path, chroma_path, collection_name, distance_function)
